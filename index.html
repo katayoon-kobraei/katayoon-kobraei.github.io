@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Katayoon Kobraei</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Katayoon Kobraei — AI engineer and researcher. LLMs and RAG, multi-agent systems, computer vision, reinforcement learning and data science.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a spec-sheet hero (pitch + config card), then a filterable project index, then a ruled timeline for experience, research and education. */
+:root{
+  --bg:#f3f6f7;
+  --surface:#ffffff;
+  --ink:#13202a;
+  --muted:#566874;
+  --line:#d6e0e4;
+  --accent:#0b7480;
+  --accent-soft:#dcefF1;
+  --mark:#c98a00;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --s-1:0.8125rem; --s0:1rem; --s1:1.125rem; --s2:1.5rem; --s3:2rem; --s4:clamp(2.6rem, 7vw, 4.6rem);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e171d; --surface:#15222a; --ink:#e4ecef; --muted:#93a7b2; --line:#26363f;
+    --accent:#4fc3cd; --accent-soft:#163a40; --mark:#e9b43c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e171d; --surface:#15222a; --ink:#e4ecef; --muted:#93a7b2; --line:#26363f;
+  --accent:#4fc3cd; --accent-soft:#163a40; --mark:#e9b43c; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--s0);line-height:1.6;}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:9;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font-family:var(--mono);font-size:var(--s-1);color:var(--ink);text-decoration:none;font-weight:500;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.nav ul a{color:var(--muted);text-decoration:none;font-size:var(--s-1);font-weight:500;white-space:nowrap}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:640px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(40px, 8vw, 88px) 48px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{font-family:var(--mono);font-size:var(--s-1);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mark)}
+.hero h1{font-size:var(--s4);font-weight:800;letter-spacing:-0.025em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.pitch{font-size:var(--s1);color:var(--muted);max-width:56ch;margin-top:22px}
+.pitch strong{color:var(--ink);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;font-weight:600;font-size:.9375rem;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer;font-family:var(--body)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn svg{width:16px;height:16px;flex:none}
+
+.config{background:var(--surface);border:1px solid var(--line);border-radius:12px;font-family:var(--mono);font-size:var(--s-1);overflow:hidden}
+.config-head{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
+.config-head b{color:var(--ink);font-weight:500}
+.config dl{margin:0;padding:14px 16px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:7px 14px}
+.config dt{color:var(--accent)}
+.config dt::after{content:":";color:var(--muted)}
+.config dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.config dd .c{color:var(--muted)}
+
+/* sections */
+section{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;margin-bottom:28px}
+.sec-head h2{font-size:var(--s3);font-weight:700;letter-spacing:-0.015em}
+.sec-head p{color:var(--muted);max-width:52ch;font-size:.9375rem}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media (max-width:860px){.caps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.caps{grid-template-columns:1fr}}
+.cap{background:var(--surface);padding:22px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cap h3{font-size:var(--s1);font-weight:700}
+.cap p{color:var(--muted);font-size:.9375rem}
+.cap .tools{font-family:var(--mono);font-size:.75rem;color:var(--accent);margin-top:auto;padding-top:6px}
+
+/* filters + projects */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{font-family:var(--body);font-size:var(--s-1);font-weight:500;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip .n{font-family:var(--mono);opacity:.65;margin-left:4px}
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.projects{grid-template-columns:1fr}}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.proj.feature{grid-column:1/-1;border-color:var(--accent)}
+.proj-top{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.proj-top .tag{color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.proj h3{font-size:1.1875rem;font-weight:700;line-height:1.25}
+.proj p{color:var(--muted);font-size:.9375rem}
+.proj ul{margin:0;padding-left:18px;color:var(--muted);font-size:.9375rem;display:grid;gap:4px}
+.proj.feature ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 28px;padding-left:0;list-style:none}
+.proj.feature li{border-top:2px solid var(--accent-soft);padding-top:8px}
+@media (max-width:760px){.proj.feature ul{grid-template-columns:1fr}}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.stack span{font-family:var(--mono);font-size:.71875rem;padding:2px 8px;border-radius:4px;background:var(--accent-soft);color:var(--ink)}
+.proj-links{display:flex;gap:16px;font-size:var(--s-1);font-weight:600}
+.proj-links a{text-decoration:none}
+.proj-links a:hover{text-decoration:underline}
+
+/* timeline rows */
+.rows{display:grid}
+.row{display:grid;grid-template-columns:180px minmax(0,1fr);gap:8px 32px;padding-block:22px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0;padding-top:0}
+@media (max-width:640px){.row{grid-template-columns:1fr}}
+.when{font-family:var(--mono);font-size:var(--s-1);color:var(--muted);font-variant-numeric:tabular-nums}
+.when b{display:block;color:var(--ink);font-weight:500}
+.row h3{font-size:var(--s1);font-weight:700;line-height:1.3}
+.org{color:var(--accent);font-weight:500;font-size:.9375rem;margin-top:2px}
+.row ul{margin:10px 0 0;padding-left:18px;color:var(--muted);display:grid;gap:5px}
+.row ul strong{color:var(--ink);font-weight:600}
+
+/* publications */
+.pubs{display:grid;gap:14px;counter-reset:pub}
+.pub{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.status{font-family:var(--mono);font-size:.71875rem;font-weight:500;padding:3px 8px;border-radius:4px;height:fit-content;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+.status.ok{background:var(--accent-soft);color:var(--accent)}
+.status.rev{background:color-mix(in srgb, var(--mark) 18%, transparent);color:var(--mark)}
+.pub h3{font-family:var(--body);font-size:1.0625rem;font-weight:600;line-height:1.35}
+.pub h3 a{color:var(--ink);text-decoration:none}
+.pub h3 a:hover{color:var(--accent);text-decoration:underline}
+.authors{color:var(--muted);font-size:.9375rem;margin-top:4px}
+.authors b{color:var(--ink);font-weight:600}
+.venue{font-size:.875rem;color:var(--muted);font-style:italic;margin-top:2px}
+.pub .proj-links{margin-top:8px}
+
+/* two-col grids */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.skills{display:grid;gap:18px}
+.skills h3{font-family:var(--mono);font-size:var(--s-1);font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills span{font-size:.875rem;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.courses{columns:2;column-gap:28px;padding:0;margin:0;list-style:none}
+@media (max-width:460px){.courses{columns:1}}
+.courses li{break-inside:avoid;display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.9375rem}
+.courses li span{font-family:var(--mono);color:var(--accent);font-size:var(--s-1)}
+.lang{display:grid;gap:10px;margin-top:6px}
+.lang div{display:flex;justify-content:space-between;gap:12px;font-size:.9375rem;border-bottom:1px solid var(--line);padding-bottom:8px}
+.lang div span{color:var(--muted)}
+
+/* contact */
+.contact{background:var(--ink);color:var(--bg);border-radius:16px;padding:clamp(28px,5vw,48px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.contact h2{font-size:var(--s3);font-weight:800;letter-spacing:-0.015em}
+.contact p{opacity:.75;margin-top:10px;max-width:46ch}
+.contact .links{display:grid;gap:10px}
+.mailbox{display:flex;gap:8px;align-items:center;background:color-mix(in srgb, var(--bg) 10%, transparent);border:1px solid color-mix(in srgb, var(--bg) 25%, transparent);border-radius:10px;padding:8px 8px 8px 14px}
+.mailbox code{font-family:var(--mono);font-size:.875rem;flex:1;min-width:0;overflow-wrap:anywhere;user-select:all}
+.mailbox button{font-family:var(--body);font-weight:600;font-size:var(--s-1);padding:7px 12px;border-radius:7px;border:0;background:var(--bg);color:var(--ink);cursor:pointer}
+.contact .links a{color:var(--bg);font-weight:500;text-decoration:none;display:flex;justify-content:space-between;padding:8px 2px;border-bottom:1px solid color-mix(in srgb, var(--bg) 20%, transparent)}
+.contact .links a:hover span:first-child{text-decoration:underline}
+.contact .links a span:last-child{font-family:var(--mono);opacity:.6;font-size:var(--s-1)}
+footer{padding-block:28px 40px;color:var(--muted);font-size:var(--s-1);font-family:var(--mono)}
+
+/* ---- motion layer ---- */
+.hero{position:relative;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);mask-image:linear-gradient(to bottom,#000 55%,transparent)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(3rem,9.5vw,6.2rem);letter-spacing:-0.035em}
+.rotator{font-family:var(--display);font-size:clamp(1.35rem,3.4vw,2.1rem);font-weight:500;margin-top:14px;min-height:1.3em;color:var(--ink)}
+.rot{color:var(--accent)}
+.caret{display:inline-block;width:3px;height:1em;background:var(--mark);margin-left:3px;vertical-align:-0.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--accent),var(--mark));transform-origin:0 50%;transform:scaleX(0)}
+.nav ul a{position:relative;transition:color .2s}
+.nav ul a.active{color:var(--accent)}
+.nav ul a.active::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--accent);border-radius:2px}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:32px;position:relative;z-index:1}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stats > div{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.stats b{font-family:var(--display);font-size:clamp(2rem,4vw,2.6rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.stats b::after{content:attr(data-suffix);color:var(--accent)}
+.stats span{color:var(--muted);font-size:var(--s-1)}
+
+.ticker{border-top:1px solid var(--line);overflow:hidden;padding-block:14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:30px;width:max-content;animation:scroll 45s linear infinite;font-family:var(--mono);font-size:var(--s-1);color:var(--muted);white-space:nowrap}
+.track span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:10px;vertical-align:.15em}
+.track span:nth-child(3n)::before{background:var(--mark)}
+.ticker:hover .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+.cap{transition:background .3s}
+.cap:hover{background:var(--accent-soft)}
+.cap h3{transition:transform .3s}
+.cap:hover h3{transform:translateX(4px)}
+
+.proj{position:relative;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease,border-color .2s,box-shadow .3s}
+.proj > *{position:relative;z-index:1}
+.proj::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 16%,transparent),transparent 62%);opacity:0;transition:opacity .3s}
+.proj:hover{border-color:var(--accent);box-shadow:0 22px 44px -26px color-mix(in srgb,var(--accent) 70%,transparent)}
+.proj:hover::after{opacity:1}
+.proj.pop{animation:pop .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
+.pub{transition:border-color .2s,transform .25s}
+.pub:hover{border-color:var(--accent);transform:translateX(4px)}
+.row{position:relative}
+.row h3{transition:color .2s}
+.row:hover h3{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  .track,.caret,.proj.pop{animation:none}
+  .reveal{opacity:1;transform:none}
+  .proj{transform:none}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<nav class="nav" aria-label="Sections">
+  <div class="progress" id="progress"></div>
+  <div class="wrap">
+    <a class="brand" href="#top">katayoon<span>.</span>kobraei</a>
+    <ul>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">AI Engineer · ML Researcher · Torino, Italy</p>
+        <h1>Katayoon <em>Kobraei</em></h1>
+        <p class="rotator">I build <span class="rot" id="rot">multi-agent LLM systems</span><span class="caret" aria-hidden="true"></span></p>
+        <p class="pitch">I'm an MSc student in <strong>AI &amp; Data Science at Politecnico di Torino</strong>. I've deployed a <strong>multi-agent LLM system</strong> in a company's live mailbox, co-authored <strong>IEEE-indexed papers</strong> on vision-language models and continual learning, and trained agents with <strong>reinforcement learning</strong>. I like the whole path from a messy dataset to a model people actually use.</p>
+        <div class="cta">
+          <a class="btn primary" href="#work">See projects</a>
+          <a class="btn" href="https://github.com/katayoon-kobraei" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            GitHub
+          </a>
+          <a class="btn" href="https://ir.linkedin.com/in/katayoon-kobraei-0108a9279" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="https://scholar.google.com/citations?user=J7i8NKUAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 1 9l11 7 9-5.73V17h2V9L12 2Zm-6.5 10.6V16c0 2.2 2.9 4 6.5 4s6.5-1.8 6.5-4v-3.4L12 16.8l-6.5-4.2Z"/></svg>
+            Google Scholar
+          </a>
+          <a class="btn" href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <aside class="config" aria-label="Profile summary">
+        <div class="config-head"><b>profile.yaml</b><span>2026</span></div>
+        <dl>
+          <dt>role</dt><dd>AI / ML Engineer <span class="c"># open to internships &amp; roles</span></dd>
+          <dt>based</dt><dd>Torino, IT <span class="c"># EU mobility: ES, DE</span></dd>
+          <dt>degree</dt><dd>MSc Computer Eng., AI &amp; Data Science</dd>
+          <dt>focus</dt><dd>[LLMs, RAG, agents, vision, RL]</dd>
+          <dt>stack</dt><dd>Python · PyTorch · TensorFlow · LangChain · Gemini API</dd>
+          <dt>papers</dt><dd>2 accepted (IEEE) + 1 under review</dd>
+          <dt>speaks</dt><dd>English (TOEFL 101) · Persian · Italian</dd>
+        </dl>
+      </aside>
+    </div>
+    <div class="wrap" style="margin-top:44px">
+      <div class="stats">
+        <div><b class="count" data-to="3">3</b><span>publications</span></div>
+        <div><b class="count" data-to="6">6</b><span>citations</span></div>
+        <div><b class="count" data-to="13" data-suffix="+">13</b><span>AI projects</span></div>
+        <div><b class="count" data-to="3">3</b><span>countries worked or studied in</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="track">
+      <span>PyTorch</span><span>Google Gemini</span><span>LangChain</span><span>RAG</span><span>Multi-agent systems</span><span>Vision Transformers</span><span>PPO · SAC · DDQN</span><span>MuJoCo</span><span>OpenCV</span><span>TensorFlow</span><span>Langfuse</span><span>Whisper</span><span>Apache Spark</span><span>scikit-learn</span><span>Spiking neural networks</span><span>GANs</span>
+      <span>PyTorch</span><span>Google Gemini</span><span>LangChain</span><span>RAG</span><span>Multi-agent systems</span><span>Vision Transformers</span><span>PPO · SAC · DDQN</span><span>MuJoCo</span><span>OpenCV</span><span>TensorFlow</span><span>Langfuse</span><span>Whisper</span><span>Apache Spark</span><span>scikit-learn</span><span>Spiking neural networks</span><span>GANs</span>
+    </div>
+  </div>
+
+  <section id="capabilities" aria-labelledby="cap-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="cap-h">What I work on</h2>
+        <p>Six areas I've built real things in, each backed by a project or paper further down.</p>
+      </div>
+      <div class="caps">
+        <div class="cap"><h3>LLM applications &amp; RAG</h3><p>Retrieval pipelines, prompt design and grounding over large, messy enterprise archives.</p><span class="tools">Gemini · LangChain · OpenRouter</span></div>
+        <div class="cap"><h3>Multi-agent systems</h3><p>Agents that classify, route and reason, with observability, rate limiting and crash-safe recovery.</p><span class="tools">LangChain · Langfuse · Whisper</span></div>
+        <div class="cap"><h3>Computer vision &amp; multimodal</h3><p>Vision Transformers, object detection, optical flow and image-to-text generation.</p><span class="tools">PyTorch · OpenCV · NATTEN</span></div>
+        <div class="cap"><h3>Reinforcement learning</h3><p>PPO, SAC and DDQN agents, reward shaping and domain randomization for robust transfer.</p><span class="tools">Stable-Baselines3 · MuJoCo · Gym</span></div>
+        <div class="cap"><h3>Data science &amp; classic ML</h3><p>EDA, feature engineering, recommender systems and clear visual communication of results.</p><span class="tools">Pandas · scikit-learn · Spark · SQL</span></div>
+        <div class="cap"><h3>Generative &amp; brain-inspired models</h3><p>Energy-based generative models, encoder-decoder GANs and spiking neural networks.</p><span class="tools">PyTorch · snnTorch · BindsNet</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="work-h">Projects</h2>
+        <p>Filter by the kind of role you're hiring for.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip" id="f-all" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" id="f-llm" data-f="llm" aria-pressed="false">LLMs &amp; agents</button>
+        <button class="chip" id="f-cv" data-f="cv" aria-pressed="false">Computer vision</button>
+        <button class="chip" id="f-rl" data-f="rl" aria-pressed="false">Reinforcement learning</button>
+        <button class="chip" id="f-nlp" data-f="nlp" aria-pressed="false">NLP</button>
+        <button class="chip" id="f-data" data-f="data" aria-pressed="false">Data science</button>
+        <button class="chip" id="f-gen" data-f="gen" aria-pressed="false">Generative</button>
+        <button class="chip" id="f-eng" data-f="eng" aria-pressed="false">Software</button>
+        <button class="chip" id="f-neuro" data-f="neuro" aria-pressed="false">Brain-inspired</button>
+      </div>
+
+      <div class="projects" id="projects">
+        <article class="proj feature" data-tags="llm eng">
+          <div class="proj-top"><span class="tag">Production · LLMs &amp; agents</span><span>Summer 2026</span></div>
+          <h3>Email AI Assistant: multi-agent RAG system for Outlook classification and filing</h3>
+          <p>Built and deployed for a company mailbox during my traineeship at Ingevia. Gemini agents read each incoming email and file it into the right project folder on a shared network archive.</p>
+          <ul>
+            <li><strong>RAG over 18 years of projects.</strong> Scopes and injects the relevant project descriptions from a per-year reference database.</li>
+            <li><strong>Built for reliability.</strong> A staged AI queue with a rate-limit circuit breaker and crash-safe checkpointing.</li>
+            <li><strong>Used by real people.</strong> Desktop app in PySide6, driving Outlook through COM automation.</li>
+          </ul>
+          <div class="stack"><span>Python</span><span>Google Gemini API</span><span>RAG</span><span>PySide6</span><span>pywin32</span><span>Pandas</span><span>PowerShell</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/INGEVIA-Email-Assistance" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="eng data">
+          <div class="proj-top"><span class="tag">Software · Search</span><span>Aug 2026</span></div>
+          <h3>Project Folder Index Assistant</h3>
+          <ul>
+            <li>Desktop app that crawls a network archive of thousands of project folders into a local SQLite index, with incremental rescans instead of full re-crawls.</li>
+            <li>Fuzzy search plus an interactive location graph rendered with Cytoscape.js inside the app.</li>
+          </ul>
+          <div class="stack"><span>Python</span><span>SQLite</span><span>Flask</span><span>RapidFuzz</span><span>Cytoscape.js</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/Project-Folder-Index-Assistance" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="llm">
+          <div class="proj-top"><span class="tag">Competition · Agents</span><span>Spring 2026</span></div>
+          <h3>Reply Mirror: multi-agent financial fraud detection</h3>
+          <ul>
+            <li>Detects evolving fraud across three datasets with 2,600+ transactions and 22 citizens.</li>
+            <li>Whisper transcribes 48 phone recordings so the agents can use audio evidence too.</li>
+            <li>Every agent run traced in Langfuse for tokens, latency and cost.</li>
+          </ul>
+          <div class="stack"><span>LangChain</span><span>OpenRouter</span><span>Langfuse</span><span>Whisper</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/LLM-Agent-REPLAY-Mirror-Fraud-Detection" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="rl">
+          <div class="proj-top"><span class="tag">Robot learning</span><span>Spring 2026</span></div>
+          <h3>Sim-to-sim transfer with domain randomization</h3>
+          <ul>
+            <li>PPO and SAC training pipeline for the MuJoCo Hopper.</li>
+            <li>Uniform Domain Randomization, plus a Generative variant with adaptive Gaussian sampling for better transfer.</li>
+            <li>Evaluated transfer between custom source and target dynamics.</li>
+          </ul>
+          <div class="stack"><span>Stable-Baselines3</span><span>Gymnasium</span><span>MuJoCo</span><span>PPO</span><span>SAC</span></div>
+        </article>
+
+        <article class="proj" data-tags="cv">
+          <div class="proj-top"><span class="tag">Computer vision</span><span>Spring 2024</span></div>
+          <h3>Neighborhood Attention Transformer (NAT)</h3>
+          <p>Implemented and adapted NAT for custom classification on 60,000 training images, with a full preprocessing pipeline.</p>
+          <div class="stack"><span>PyTorch</span><span>NATTEN</span><span>CIFAR-10</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_ComputerVision_2024/tree/main/Final%20Project" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="cv">
+          <div class="proj-top"><span class="tag">Computer vision</span><span>Spring 2024</span></div>
+          <h3>Detection, optical flow and speed estimation</h3>
+          <ul>
+            <li>Feature Pyramid Network object detector.</li>
+            <li>Lucas-Kanade optical flow over video sequences.</li>
+            <li>CNN that predicts vehicle speed from camera footage; ViT vs. ResNet and VGG on CIFAR-10.</li>
+          </ul>
+          <div class="stack"><span>PyTorch</span><span>OpenCV</span><span>ViT</span><span>FPN</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_ComputerVision_2024/tree/main/Assignment%203" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="rl">
+          <div class="proj-top"><span class="tag">Reinforcement learning</span><span>Fall 2023</span></div>
+          <h3>An RL agent that plays Tetris</h3>
+          <ul>
+            <li>Double DQN with a prioritized replay buffer to handle Tetris's delayed rewards.</li>
+            <li>Custom reward structure that separates rewards before and after a piece lands.</li>
+          </ul>
+          <div class="stack"><span>TensorFlow</span><span>Keras</span><span>Gym</span><span>PyGame</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_AdvancedML_FinalProject/tree/main/Reinforcement%20Learning" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="nlp llm">
+          <div class="proj-top"><span class="tag">NLP</span><span>Fall 2023</span></div>
+          <h3>Detecting AI-generated text</h3>
+          <ul>
+            <li>LSTM and logistic-regression detectors trained on 527,000+ records.</li>
+            <li>Balancing, augmentation and external data to correct heavy class imbalance.</li>
+          </ul>
+          <div class="stack"><span>TensorFlow</span><span>scikit-learn</span><span>LSTM</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_AdvancedML_FinalProject/tree/main/LLM%20Text%20Detection" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="nlp data">
+          <div class="proj-top"><span class="tag">NLP</span><span>Fall 2023</span></div>
+          <h3>Persian sentiment analysis for marketing</h3>
+          <p>Deep learning classifiers for 70,000 Snappfood user comments, with Persian-specific preprocessing and evaluation visuals.</p>
+          <div class="stack"><span>Keras</span><span>Hazm</span><span>scikit-learn</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_AdvancedML_FinalProject/tree/main/Persian%20Sentiment%20Analysis%20for%20Marketing" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="data">
+          <div class="proj-top"><span class="tag">Data science</span><span>Fall 2023</span></div>
+          <h3>COVID-19 trends and correlations</h3>
+          <p>Exploratory analysis of regional disparities, vaccination effects and policy stringency, with custom visualizations.</p>
+          <div class="stack"><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU-DataScience_Course_2022/tree/main/Assignment%202" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="data eng">
+          <div class="proj-top"><span class="tag">Recommender · Deployed</span><span>Spring 2023</span></div>
+          <h3>Movie recommender system</h3>
+          <ul>
+            <li>Feature engineering over 45,000 movies and 270,000 ratings.</li>
+            <li>Streamlit interface, deployed on Hugging Face Spaces.</li>
+          </ul>
+          <div class="stack"><span>scikit-learn</span><span>TMDb API</span><span>Streamlit</span><span>HF Spaces</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_ML_final_project_MovieRecommenderSystem" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="gen cv">
+          <div class="proj-top"><span class="tag">Generative models</span><span>Fall 2022</span></div>
+          <h3>Generative PointNet: energy-based 3D point clouds</h3>
+          <ul>
+            <li>Energy-based model for 3D point cloud generation, reconstruction and classification.</li>
+            <li>Maximum-likelihood training with MCMC Langevin-dynamics sampling from noise.</li>
+          </ul>
+          <div class="stack"><span>PyTorch</span><span>MCMC</span><span>NumPy</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_ArtificialNeuralNetworks_2022/tree/main/Final%20Project" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+
+        <article class="proj" data-tags="neuro">
+          <div class="proj-top"><span class="tag">Brain-inspired</span><span>Spring 2022</span></div>
+          <h3>Modeling neural dynamics</h3>
+          <p>LIF, ALIF and AELIF neuron models, STDP learning and a spiking neural network written from scratch.</p>
+          <div class="stack"><span>Python</span><span>NumPy</span><span>Matplotlib</span></div>
+          <div class="proj-links"><a href="https://github.com/katayoon-kobraei/SBU_ComputationalNeuroscience_2022" target="_blank" rel="noopener">Code ↗</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="exp-h">Experience</h2></div>
+      <div class="rows">
+        <div class="row">
+          <div class="when"><b>Jul – Aug 2026</b>Valencia, Spain</div>
+          <div>
+            <h3>AI Engineering Intern · Erasmus+ Traineeship</h3>
+            <p class="org"><a href="https://ingevia.com/" target="_blank" rel="noopener">Ingevia</a> · Project &amp; Construction Management</p>
+            <ul>
+              <li>Selected as <strong>one of 10 candidates from Piedmont</strong>, through Oltre Formazione and the Piedmont Region, to bring current AI models into a real industry setting.</li>
+              <li>Built and deployed an <strong>LLM-powered RAG system</strong> on Google Gemini for semantic document retrieval and company knowledge management.</li>
+              <li>Shipped the <strong>multi-agent email filing assistant</strong> and the <strong>project archive indexer</strong> described above.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when"><b>Jul 2024 – Oct 2025</b>Tehran, Iran</div>
+          <div>
+            <h3>Research Assistant</h3>
+            <p class="org"><a href="https://ipm.ac.ir/" target="_blank" rel="noopener">IPM, Institute for Research in Fundamental Sciences</a> · Dr. D. Rahmati</p>
+            <ul>
+              <li>Research on <strong>emotional image captioning</strong> and emotion-aware text generation with large language models.</li>
+              <li>Developed and optimized <strong>multimodal deep learning models</strong> in PyTorch and TensorFlow. Led to a paper accepted at IPRIA 2025.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when"><b>May – Jul 2024</b>Tehran, Iran</div>
+          <div>
+            <h3>Deep Learning Intern</h3>
+            <p class="org">IPM · Dr. D. Rahmati, H. Motamednia</p>
+            <ul>
+              <li>Worked on <strong>text-to-image generation</strong> models that combine visual and textual signals to carry emotional context into generated images.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when"><b>2022 – 2024</b>Tehran, Iran</div>
+          <div>
+            <h3>Teaching Assistant</h3>
+            <p class="org"><a href="https://en.sbu.ac.ir/" target="_blank" rel="noopener">Shahid Beheshti University</a></p>
+            <ul>
+              <li><strong>Foundations of Machine Learning</strong>, Dr. H. Farahani (2024)</li>
+              <li><strong>Advanced Computer Programming</strong>, Dr. S. Kheradpisheh (2022)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" aria-labelledby="res-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="res-h">Publications &amp; talks</h2>
+        <p>Multimodal generation, continual learning and drug-safety prediction. Full list on <a href="https://scholar.google.com/citations?user=J7i8NKUAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>
+      </div>
+      <div class="pubs">
+        <article class="pub">
+          <span class="status ok">IEEE</span>
+          <div>
+            <h3><a href="https://ieeexplore.ieee.org/document/11213590" target="_blank" rel="noopener">Wake-Sleep Learning in R-STDP-Based Spiking Neural Networks to Avoid Catastrophic Forgetting</a></h3>
+            <p class="authors">M. Baradaran, <b>K. Kobraei</b>, S. R. Kheradpisheh · 2025</p>
+            <p class="venue">33rd International Conference on Electrical Engineering (ICEE 2025). Oral presentation.</p>
+          </div>
+        </article>
+        <article class="pub">
+          <span class="status ok">IEEE</span>
+          <div>
+            <h3><a href="https://www.researchgate.net/publication/398219428_Towards_Emotional_Image_Captioning_and_Emotion-Aware_Text_Generation" target="_blank" rel="noopener">Towards Emotional Image Captioning and Emotion-Aware Text Generation</a></h3>
+            <p class="authors">S. M. Sadeghi, <b>K. Kobraei</b>, M. Baradaran, H. Motamednia, D. Rahmati · 2025</p>
+            <p class="venue">7th International Conference on Pattern Recognition and Image Analysis (IPRIA 2025). Poster.</p>
+          </div>
+        </article>
+        <article class="pub">
+          <span class="status rev">Under review</span>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2406.00118" target="_blank" rel="noopener">ADEP: A Discriminator-Enhanced Encoder-Decoder Architecture for Accurate Prediction of Adverse Effects in Polypharmacy</a></h3>
+            <p class="authors"><b>K. Kobraei</b>, M. Baradaran, S. M. Sadeghi, R. Masumshah, C. Eslahchi · arXiv:2406.00118</p>
+            <p class="venue">Submitted to PLOS ONE, in revision.</p>
+            <div class="proj-links"><a href="https://arxiv.org/abs/2406.00118" target="_blank" rel="noopener">arXiv ↗</a><a href="https://github.com/m0hssn/ADEP" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="rows" style="margin-top:36px">
+        <div class="row">
+          <div class="when"><b>Mar 2024</b>Seminar</div>
+          <div>
+            <h3><a href="https://drive.google.com/file/d/1SjPLSJWBXNc395J2dY2U3X7pMIY2GXgu/view?usp=sharing" target="_blank" rel="noopener">Healthcare, Bioinformatics &amp; Computational Biology (HBC 2024)</a></h3>
+            <p class="org">Rayazi Research Group &amp; RSG-Iran · lectures by Prof. Pavel Pevzner, Dr. Anne Carpenter and others</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" aria-labelledby="edu-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="edu-h">Education</h2></div>
+      <div class="rows">
+        <div class="row">
+          <div class="when"><b>Sep 2025 – now</b>Torino, Italy</div>
+          <div>
+            <h3>MSc Computer Engineering, AI &amp; Data Science track</h3>
+            <p class="org"><a href="https://www.polito.it/en" target="_blank" rel="noopener">Politecnico di Torino</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when"><b>Nov 2020 – Apr 2025</b>Tehran, Iran</div>
+          <div>
+            <h3>BSc Computer Science · GPA 3.68 / 4.00</h3>
+            <p class="org"><a href="https://en.sbu.ac.ir/" target="_blank" rel="noopener">Shahid Beheshti University</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when"><b>2017 – 2020</b>Isfahan, Iran</div>
+          <div>
+            <h3>Diploma in Mathematics &amp; Physics · 19.50 / 20</h3>
+            <p class="org">Farzanegan Amin 2 High School, National Organization for Development of Exceptional Talents</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:40px">
+        <div>
+          <div class="skills"><div><h3>Selected courses</h3>
+          <ul class="courses">
+            <li>Advanced Machine Learning <span>A+</span></li>
+            <li>Foundations of ML <span>A+</span></li>
+            <li>Neural Networks <span>A+</span></li>
+            <li>Computer Vision <span>A+</span></li>
+            <li>Foundations of Data Science <span>A+</span></li>
+            <li>Big Data Processing <span>A+</span></li>
+            <li>Robot Learning <span>A+</span></li>
+            <li>Software Engineering <span>A+</span></li>
+            <li>Probability <span>A+</span></li>
+            <li>Bioinformatics <span>A+</span></li>
+            <li>Brain-inspired Computing <span>A+</span></li>
+            <li>Computational Neuroscience <span>A</span></li>
+          </ul></div></div>
+        </div>
+        <div class="skills">
+          <div><h3>Honors</h3>
+            <div class="lang">
+              <div><strong>MAECI Italy Scholarship</strong><span>2025</span></div>
+              <div><strong>Top 0.5% of 155,250+ in national university entrance exam</strong><span>2020</span></div>
+            </div>
+          </div>
+          <div><h3>Languages</h3>
+            <div class="lang">
+              <div><strong>English</strong><span>TOEFL iBT 101 / 120</span></div>
+              <div><strong>Persian</strong><span>Native</span></div>
+              <div><strong>Italian</strong><span>Beginner</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="sk-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="sk-h">Toolbox</h2></div>
+      <div class="split">
+        <div class="skills">
+          <div><h3>Languages</h3><div class="pills"><span>Python</span><span>Java</span><span>C++</span><span>C</span><span>MATLAB</span><span>R</span><span>SQL</span></div></div>
+          <div><h3>ML &amp; deep learning</h3><div class="pills"><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>scikit-learn</span><span>OpenCV</span><span>Stable-Baselines3</span><span>snnTorch</span><span>BindsNet</span></div></div>
+        </div>
+        <div class="skills">
+          <div><h3>LLMs &amp; agents</h3><div class="pills"><span>Google Gemini API</span><span>LangChain</span><span>RAG</span><span>OpenRouter</span><span>Langfuse</span><span>Whisper</span></div></div>
+          <div><h3>Data &amp; engineering</h3><div class="pills"><span>Pandas</span><span>NumPy</span><span>Apache Spark</span><span>PostgreSQL</span><span>MongoDB</span><span>SQLite</span><span>Flask</span><span>Streamlit</span><span>Git</span><span>Linux</span><span>LaTeX</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="ct-h">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <h2 id="ct-h">Let's talk.</h2>
+          <p>I'm looking for AI and ML engineering roles and internships in Europe. Remote or on-site.</p>
+        </div>
+        <div class="links">
+          <div class="mailbox">
+            <code id="email">katayoun.kobraei@gmail.com</code>
+            <button type="button" id="copy">Copy</button>
+          </div>
+          <a href="https://github.com/katayoon-kobraei" target="_blank" rel="noopener"><span>GitHub</span><span>katayoon-kobraei ↗</span></a>
+          <a href="https://ir.linkedin.com/in/katayoon-kobraei-0108a9279" target="_blank" rel="noopener"><span>LinkedIn</span><span>katayoon-kobraei ↗</span></a>
+          <a href="https://scholar.google.com/citations?user=J7i8NKUAAAAJ&amp;hl=en" target="_blank" rel="noopener"><span>Google Scholar</span><span>Katayoon Kobraei ↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 Katayoon Kobraei · Torino, Italy</div></footer>
+
+<script>
+(function(){
+  const chips=[...document.querySelectorAll('.chip')];
+  const cards=[...document.querySelectorAll('#projects .proj')];
+  chips.forEach(c=>{
+    const f=c.dataset.f;
+    const n=f==='all'?cards.length:cards.filter(p=>p.dataset.tags.split(' ').includes(f)).length;
+    const s=document.createElement('span');s.className='n';s.textContent=n;c.appendChild(s);
+    c.addEventListener('click',()=>{
+      chips.forEach(x=>x.setAttribute('aria-pressed',x===c?'true':'false'));
+      let k=0;cards.forEach(p=>{const show=f==='all'||p.dataset.tags.split(' ').includes(f);p.hidden=!show;if(show){p.classList.remove('reveal','in','pop');p.style.transitionDelay='';void p.offsetWidth;p.style.animationDelay=(k++*45)+'ms';p.classList.add('pop');}});
+    });
+  });
+  const btn=document.getElementById('copy'),email=document.getElementById('email');
+  btn.addEventListener('click',()=>{
+    const done=()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1600);};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(email);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected';setTimeout(()=>btn.textContent='Copy',1600);};
+    try{navigator.clipboard.writeText(email.textContent).then(done,fallback);}catch(e){fallback();}
+  });
+})();
+</script>
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const root=document.documentElement;
+
+/* typing line */
+const rot=document.getElementById('rot');
+const phrases=["multi-agent LLM systems","RAG pipelines on real company data","computer vision models","RL agents that learn from scratch","multimodal models that see and write","data products people actually use"];
+if(rot&&!reduce){
+  let i=0,txt=phrases[0],del=true;
+  const tick=()=>{
+    if(del){txt=txt.slice(0,-1);rot.textContent=txt;if(!txt){del=false;i=(i+1)%phrases.length;setTimeout(tick,320);}else setTimeout(tick,26);}
+    else{const t=phrases[i];txt=t.slice(0,txt.length+1);rot.textContent=txt;if(txt===t){del=true;setTimeout(tick,2300);}else setTimeout(tick,50+Math.random()*50);}
+  };
+  setTimeout(tick,2800);
+}
+
+/* counters */
+if(!reduce&&'IntersectionObserver' in window){
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    const el=e.target,to=+el.dataset.to,t0=performance.now();
+    const step=t=>{const q=Math.min(1,(t-t0)/1500);el.textContent=Math.round(to*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);
+  }),{threshold:.5});
+  document.querySelectorAll('.count').forEach(c=>cio.observe(c));
+}
+
+/* scroll progress + active section */
+const bar=document.getElementById('progress');
+const onScroll=()=>{const h=root.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+if('IntersectionObserver' in window){
+  const links=[...document.querySelectorAll('.nav ul a')];
+  const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s=>sio.observe(s));
+}
+
+/* reveal on scroll (only for things below the first screen) */
+if(!reduce&&'IntersectionObserver' in window){
+  const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.sec-head,.cap,.proj,.row,.pub,.skills > div,.contact').forEach(el=>{
+    if(el.getBoundingClientRect().top<=innerHeight)return;
+    const idx=[...el.parentElement.children].indexOf(el);
+    el.classList.add('reveal');el.style.transitionDelay=Math.min(idx,5)*80+'ms';
+    el.addEventListener('transitionend',function h(ev){if(ev.propertyName!=='transform'||!el.classList.contains('in'))return;el.classList.remove('reveal','in');el.style.transitionDelay='';el.removeEventListener('transitionend',h);});
+    rio.observe(el);
+  });
+}
+
+/* tilt + spotlight on project cards */
+if(!reduce&&matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('.proj').forEach(p=>{
+    p.addEventListener('pointermove',e=>{const r=p.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      p.style.setProperty('--ry',((x-.5)*5).toFixed(2)+'deg');p.style.setProperty('--rx',((.5-y)*5).toFixed(2)+'deg');
+      p.style.setProperty('--mx',(x*100).toFixed(1)+'%');p.style.setProperty('--my',(y*100).toFixed(1)+'%');});
+    p.addEventListener('pointerleave',()=>{p.style.setProperty('--rx','0deg');p.style.setProperty('--ry','0deg');});
+  });
+}
+
+/* neural network background: signals travel node to node */
+const cv=document.getElementById('net');
+if(cv&&cv.getContext){
+  const ctx=cv.getContext('2d'),hero=cv.parentElement,R=140;
+  let W=0,H=0,nodes=[],pulses=[],mouse={x:-1e4,y:-1e4},C={},run=true,last=0;
+  const cssv=n=>getComputedStyle(root).getPropertyValue(n).trim();
+  const colors=()=>{C.a=cssv('--accent');C.m=cssv('--mark');C.l=cssv('--muted');if(reduce)frame(0);};
+  const size=force=>{const r=hero.getBoundingClientRect();if(!force&&Math.abs(r.width-W)<2&&Math.abs(r.height-H)<80)return;
+    const d=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);
+    const n=Math.max(26,Math.min(95,Math.round(W*H/12000)));
+    nodes=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:1+Math.random()*1.8,g:0}));pulses=[];};
+  const near=(i,ex)=>{const a=nodes[i],out=[];for(let j=0;j<nodes.length;j++){if(j===i||j===ex)continue;const b=nodes[j],dx=a.x-b.x,dy=a.y-b.y;if(dx*dx+dy*dy<R*R)out.push(j);}return out;};
+  const spawn=()=>{const i=Math.floor(Math.random()*nodes.length),nb=near(i,-1);if(nb.length)pulses.push({a:i,b:nb[Math.floor(Math.random()*nb.length)],t:0,hops:0,c:Math.random()<.22?'m':'a'});};
+  function frame(ts){
+    if(!run)return;
+    ctx.clearRect(0,0,W,H);
+    for(const p of nodes){
+      if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+        const dx=mouse.x-p.x,dy=mouse.y-p.y;if(dx*dx+dy*dy<160*160){p.x+=dx*.004;p.y+=dy*.004;}}
+      p.g*=.94;
+    }
+    ctx.lineWidth=1;ctx.strokeStyle=C.l;
+    for(let i=0;i<nodes.length;i++){const a=nodes[i];for(let j=i+1;j<nodes.length;j++){const b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+      if(d2<R*R){ctx.globalAlpha=(1-Math.sqrt(d2)/R)*.26;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}
+    ctx.strokeStyle=C.a;
+    for(const p of nodes){const d=Math.hypot(mouse.x-p.x,mouse.y-p.y);if(d<170){ctx.globalAlpha=(1-d/170)*.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();}}
+    if(!reduce&&ts-last>200&&pulses.length<16){spawn();last=ts;}
+    for(let k=pulses.length-1;k>=0;k--){
+      const q=pulses[k],a=nodes[q.a],b=nodes[q.b];q.t+=.024;const t0=Math.max(0,q.t-.3),c=q.c==='m'?C.m:C.a;
+      const x=a.x+(b.x-a.x)*Math.min(q.t,1),y=a.y+(b.y-a.y)*Math.min(q.t,1);
+      ctx.globalAlpha=.85;ctx.strokeStyle=c;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(a.x+(b.x-a.x)*t0,a.y+(b.y-a.y)*t0);ctx.lineTo(x,y);ctx.stroke();ctx.lineWidth=1;
+      ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,2.3,0,6.2832);ctx.fill();
+      if(q.t>=1){b.g=1;pulses.splice(k,1);if(q.hops<5&&Math.random()<.75){const nb=near(q.b,q.a);if(nb.length)pulses.push({a:q.b,b:nb[Math.floor(Math.random()*nb.length)],t:0,hops:q.hops+1,c:q.c});}}
+    }
+    for(const p of nodes){ctx.globalAlpha=.35+p.g*.65;ctx.fillStyle=p.g>.05?C.a:C.l;ctx.beginPath();ctx.arc(p.x,p.y,p.r+p.g*2.6,0,6.2832);ctx.fill();}
+    ctx.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  size(true);colors();
+  addEventListener('resize',()=>{size(false);if(reduce)frame(0);});
+  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+  hero.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-1e4;});
+  try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',colors);}catch(e){}
+  new MutationObserver(colors).observe(root,{attributes:true,attributeFilter:['data-theme']});
+  if('IntersectionObserver' in window){new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!run){run=true;requestAnimationFrame(frame);}else if(!v)run=false;}).observe(hero);}
+  requestAnimationFrame(frame);
+}
+})();
+</script>
+</body>
+</html>
